@@ -129,6 +129,10 @@ public final class Log {
     private Log() {
     }
 
+    private static String getFormattedTag(String tag) {
+        return "[" + tag + "]" + "[t=" + Thread.currentThread().getName() + "]";
+    }
+
     /**
      * Send a {@link #VERBOSE} log message.
      * @param tag Used to identify the source of a log message.  It usually identifies
@@ -136,7 +140,7 @@ public final class Log {
      * @param msg The message you would like logged.
      */
     public static int v(@Nullable String tag, @NonNull String msg) {
-        return println_native(LOG_ID_MAIN, VERBOSE, tag, msg);
+        return println_native(LOG_ID_MAIN, VERBOSE, getFormattedTag(tag), msg);
     }
 
     /**
@@ -147,7 +151,7 @@ public final class Log {
      * @param tr An exception to log
      */
     public static int v(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr) {
-        return printlns(LOG_ID_MAIN, VERBOSE, tag, msg, tr);
+        return printlns(LOG_ID_MAIN, VERBOSE, getFormattedTag(tag), msg, tr);
     }
 
     /**
@@ -157,7 +161,7 @@ public final class Log {
      * @param msg The message you would like logged.
      */
     public static int d(@Nullable String tag, @NonNull String msg) {
-        return println_native(LOG_ID_MAIN, DEBUG, tag, msg);
+        return println_native(LOG_ID_MAIN, DEBUG, getFormattedTag(tag), msg);
     }
 
     /**
@@ -168,7 +172,7 @@ public final class Log {
      * @param tr An exception to log
      */
     public static int d(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr) {
-        return printlns(LOG_ID_MAIN, DEBUG, tag, msg, tr);
+        return printlns(LOG_ID_MAIN, DEBUG, getFormattedTag(tag), msg, tr);
     }
 
     /**
@@ -178,7 +182,7 @@ public final class Log {
      * @param msg The message you would like logged.
      */
     public static int i(@Nullable String tag, @NonNull String msg) {
-        return println_native(LOG_ID_MAIN, INFO, tag, msg);
+        return println_native(LOG_ID_MAIN, INFO, getFormattedTag(tag), msg);
     }
 
     /**
@@ -189,7 +193,7 @@ public final class Log {
      * @param tr An exception to log
      */
     public static int i(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr) {
-        return printlns(LOG_ID_MAIN, INFO, tag, msg, tr);
+        return printlns(LOG_ID_MAIN, INFO, getFormattedTag(tag), msg, tr);
     }
 
     /**
@@ -199,7 +203,7 @@ public final class Log {
      * @param msg The message you would like logged.
      */
     public static int w(@Nullable String tag, @NonNull String msg) {
-        return println_native(LOG_ID_MAIN, WARN, tag, msg);
+        return println_native(LOG_ID_MAIN, WARN, getFormattedTag(tag), msg);
     }
 
     /**
@@ -210,7 +214,7 @@ public final class Log {
      * @param tr An exception to log
      */
     public static int w(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr) {
-        return printlns(LOG_ID_MAIN, WARN, tag, msg, tr);
+        return printlns(LOG_ID_MAIN, WARN, getFormattedTag(tag), msg, tr);
     }
 
     /**
@@ -242,7 +246,7 @@ public final class Log {
      * @param tr An exception to log
      */
     public static int w(@Nullable String tag, @Nullable Throwable tr) {
-        return printlns(LOG_ID_MAIN, WARN, tag, "", tr);
+        return printlns(LOG_ID_MAIN, WARN, getFormattedTag(tag), "", tr);
     }
 
     /**
@@ -252,7 +256,7 @@ public final class Log {
      * @param msg The message you would like logged.
      */
     public static int e(@Nullable String tag, @NonNull String msg) {
-        return println_native(LOG_ID_MAIN, ERROR, tag, msg);
+        return println_native(LOG_ID_MAIN, ERROR, getFormattedTag(tag), msg);
     }
 
     /**
@@ -263,7 +267,7 @@ public final class Log {
      * @param tr An exception to log
      */
     public static int e(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr) {
-        return printlns(LOG_ID_MAIN, ERROR, tag, msg, tr);
+        return printlns(LOG_ID_MAIN, ERROR, getFormattedTag(tag), msg, tr);
     }
 
     /**
