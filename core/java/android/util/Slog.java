@@ -36,6 +36,10 @@ public final class Slog {
     private Slog() {
     }
 
+    private static String getFormattedTag(String tag) {
+        return "[" + tag + "]" + "[t=" + Thread.currentThread().getName() + "]";
+    }
+
     /**
      * Logs {@code msg} at {@link Log#VERBOSE} level.
      *
@@ -47,7 +51,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int v(@Nullable String tag, @NonNull String msg) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.VERBOSE, tag, msg);
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.VERBOSE, getFormattedTag(tag), msg);
     }
 
     /**
@@ -62,7 +66,7 @@ public final class Slog {
      * @see Log#v(String, String, Throwable)
      */
     public static int v(@Nullable String tag, @NonNull String msg, @Nullable Throwable tr) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.VERBOSE, tag,
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.VERBOSE, getFormattedTag(tag),
                 msg + '\n' + Log.getStackTraceString(tr));
     }
 
@@ -77,7 +81,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int d(@Nullable String tag, @NonNull String msg) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.DEBUG, tag, msg);
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.DEBUG, getFormattedTag(tag), msg);
     }
 
     /**
@@ -93,7 +97,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int d(@Nullable String tag, @NonNull String msg, @Nullable Throwable tr) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.DEBUG, tag,
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.DEBUG, getFormattedTag(tag),
                 msg + '\n' + Log.getStackTraceString(tr));
     }
 
@@ -108,7 +112,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int i(@Nullable String tag, @NonNull String msg) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.INFO, tag, msg);
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.INFO, getFormattedTag(tag), msg);
     }
 
     /**
@@ -123,7 +127,7 @@ public final class Slog {
      * @see Log#i(String, String, Throwable)
      */
     public static int i(@Nullable String tag, @NonNull String msg, @Nullable Throwable tr) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.INFO, tag,
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.INFO, getFormattedTag(tag),
                 msg + '\n' + Log.getStackTraceString(tr));
     }
 
@@ -138,7 +142,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int w(@Nullable String tag, @NonNull String msg) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.WARN, tag, msg);
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.WARN, getFormattedTag(tag), msg);
     }
 
     /**
@@ -154,7 +158,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int w(@Nullable String tag, @NonNull String msg, @Nullable Throwable tr) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.WARN, tag,
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.WARN, getFormattedTag(tag),
                 msg + '\n' + Log.getStackTraceString(tr));
     }
 
@@ -168,7 +172,7 @@ public final class Slog {
      * @see Log#w(String, Throwable)
      */
     public static int w(@Nullable String tag, @Nullable Throwable tr) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.WARN, tag, Log.getStackTraceString(tr));
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.WARN, getFormattedTag(tag), Log.getStackTraceString(tr));
     }
 
     /**
@@ -182,7 +186,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int e(@Nullable String tag, @NonNull String msg) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.ERROR, tag, msg);
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.ERROR, getFormattedTag(tag), msg);
     }
 
     /**
@@ -198,7 +202,7 @@ public final class Slog {
      */
     @UnsupportedAppUsage
     public static int e(@Nullable String tag, @NonNull String msg, @Nullable Throwable tr) {
-        return Log.println_native(Log.LOG_ID_SYSTEM, Log.ERROR, tag,
+        return Log.println_native(Log.LOG_ID_SYSTEM, Log.ERROR, getFormattedTag(tag),
                 msg + '\n' + Log.getStackTraceString(tr));
     }
 

@@ -1,0 +1,3 @@
+# 排除所有 android.bluetooth 包及其子包下的所有类
+# jarjar的 'zap' 规则用于丢弃匹配的类
+zap android.bluetooth.**

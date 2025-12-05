@@ -389,6 +389,26 @@ java_library {
     apex_available: ["//apex_available:platform"],
 }
 
+java_library {
+    name: "framework-no-bluetooth",
+    defaults: ["framework-aidl-export-defaults"],
+    installable: false, // this lib is a build-only library
+    static_libs: [
+        "app-compat-annotations",
+        "framework-minus-apex",
+        "framework-updatable-stubs-module_libs_api",
+    ],
+    jarjar_rules: ":framework-no-bluetooth-jarjar-rules",
+    sdk_version: "core_platform",
+    apex_available: ["//apex_available:platform"],
+}
+
+filegroup {
+    name: "framework-no-bluetooth-jarjar-rules",
+    srcs: ["framework-no-bluetooth-jarjar-rules.txt"],
+    visibility: ["//visibility:public"],
+}
+
 platform_compat_config {
     name: "framework-platform-compat-config",
     src: ":framework-minus-apex",
