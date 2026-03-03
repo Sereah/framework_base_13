@@ -126,11 +126,31 @@ public final class Log {
             }
         };
 
+    private static boolean mShowThread = false;
+    private static String mBaseTag = "";
+
     private Log() {
     }
 
     private static String getFormattedTag(String tag) {
-        return "[" + tag + "]" + "[t=" + Thread.currentThread().getName() + "]";
+        String finalTag = tag;
+        if (!mBaseTag.isEmpty()) {
+            finalTag = mBaseTag + "-" + tag;
+        }
+        if (mShowThread) {
+            return "[" + finalTag + "]" + "[" + Thread.currentThread().getName() + "]";
+        } else {
+            return finalTag;
+        }
+        
+    }
+
+    /**
+     * @hide
+     */
+    public static void init(@NonNull String baseTag, boolean showThread) {
+        mShowThread = showThread;
+        mBaseTag = baseTag;
     }
 
     /**
