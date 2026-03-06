@@ -235,6 +235,7 @@ import android.view.textservice.TextServicesManager;
 import android.view.translation.ITranslationManager;
 import android.view.translation.TranslationManager;
 import android.view.translation.UiTranslationManager;
+import android.voice.VoiceManager;
 
 import com.android.internal.app.IAppOpsService;
 import com.android.internal.app.IBatteryStats;
@@ -1525,6 +1526,14 @@ public final class SystemServiceRegistry {
                         IAmbientContextManager manager =
                                 IAmbientContextManager.Stub.asInterface(iBinder);
                         return new AmbientContextManager(ctx.getOuterContext(), manager);
+                    }});
+
+        // 语音助手服务注册
+        registerService(Context.VOICE_SERVICE, VoiceManager.class,
+                new CachedServiceFetcher<VoiceManager>() {
+                    @Override
+                    public VoiceManager createService(ContextImpl ctx) {
+                        return new VoiceManager(ctx.getOuterContext());
                     }});
 
         sInitializing = true;

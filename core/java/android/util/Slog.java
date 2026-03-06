@@ -37,7 +37,7 @@ public final class Slog {
     }
 
     private static String getFormattedTag(String tag) {
-        return "[" + tag + "]" + "[t=" + Thread.currentThread().getName() + "]";
+        return "[" + tag + "]" + "[" + Thread.currentThread().getName() + "]";
     }
 
     /**

@@ -208,6 +208,7 @@ import com.android.server.uri.UriGrantsManagerService;
 import com.android.server.usage.UsageStatsService;
 import com.android.server.utils.TimingsTraceAndSlog;
 import com.android.server.vibrator.VibratorManagerService;
+import com.android.server.voice.VoiceService;
 import com.android.server.vr.VrManagerService;
 import com.android.server.webkit.WebViewUpdateService;
 import com.android.server.wm.ActivityTaskManagerService;
@@ -1665,6 +1666,10 @@ public final class SystemServer implements Dumpable {
 
             t.traceBegin("StartLogcatManager");
             mSystemServiceManager.startService(LogcatManagerService.class);
+            t.traceEnd();
+
+            t.traceBegin("StartVoiceService");
+            mSystemServiceManager.startService(VoiceService.class);
             t.traceEnd();
 
         } catch (Throwable e) {

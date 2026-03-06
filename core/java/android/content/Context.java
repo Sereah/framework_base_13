@@ -4957,6 +4957,12 @@ public abstract class Context {
     public static final String VOICE_INTERACTION_MANAGER_SERVICE = "voiceinteraction";
 
     /**
+     * @hide
+     * 语音服务
+     */
+    public static final String VOICE_SERVICE = "voice_manager";
+
+    /**
      * Official published name of the (internal) autofill service.
      *
      * @hide
