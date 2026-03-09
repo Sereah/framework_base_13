@@ -212,6 +212,8 @@ import com.android.server.policy.keyguard.KeyguardServiceDelegate;
 import com.android.server.policy.keyguard.KeyguardServiceDelegate.DrawnListener;
 import com.android.server.policy.keyguard.KeyguardStateMonitor.StateCallback;
 import com.android.server.statusbar.StatusBarManagerInternal;
+import com.android.server.voice.VoiceService;
+import com.android.server.voice.VoiceServiceInternal;
 import com.android.server.vr.VrManagerInternal;
 import com.android.server.wm.ActivityTaskManagerInternal;
 import com.android.server.wm.DisplayPolicy;
@@ -266,6 +268,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final int LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM = 3;
     static final int LONG_PRESS_POWER_GO_TO_VOICE_ASSIST = 4;
     static final int LONG_PRESS_POWER_ASSISTANT = 5; // Settings.Secure.ASSISTANT
+    static final int LONG_PRESS_POWER_CUSTOM_VOICE = 6; // Custom Voice
 
     // must match: config_veryLongPresOnPowerBehavior in config.xml
     static final int VERY_LONG_PRESS_POWER_NOTHING = 0;
@@ -643,6 +646,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_HANDLE_ALL_APPS = 22;
     private static final int MSG_LAUNCH_ASSIST = 23;
     private static final int MSG_RINGER_TOGGLE_CHORD = 24;
+
+    private VoiceServiceInternal mVoiceServiceInternal;
 
     private class PolicyHandler extends Handler {
         @Override
@@ -1200,6 +1205,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 final int powerKeyDeviceId = Integer.MIN_VALUE;
                 launchAssistAction(null, powerKeyDeviceId, eventTime,
                         AssistUtils.INVOCATION_TYPE_POWER_BUTTON_LONG_PRESS);
+                break;
+            case LONG_PRESS_POWER_CUSTOM_VOICE:
+                mPowerKeyHandled = true;
+                VoiceServiceInternal voiceService = getVoiceServiceInternal();
+                if (voiceService != null) {
+                    voiceService.onLongPressPowerKey();
+                } else {
+                    Slog.w(TAG, "VoiceServiceInternal still null during long press!");
+                }
                 break;
         }
     }
@@ -2117,6 +2131,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         initKeyCombinationRules();
         initSingleKeyGestureRules();
         mSideFpsEventHandler = new SideFpsEventHandler(mContext, mHandler, mPowerManager);
+    }
+
+    private VoiceServiceInternal getVoiceServiceInternal() {
+        if (mVoiceServiceInternal == null) {
+            mVoiceServiceInternal = LocalServices.getService(VoiceServiceInternal.class);
+        }
+        return mVoiceServiceInternal;
     }
 
     private void initKeyCombinationRules() {
@@ -5826,6 +5847,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return "LONG_PRESS_POWER_GO_TO_VOICE_ASSIST";
             case LONG_PRESS_POWER_ASSISTANT:
                 return "LONG_PRESS_POWER_ASSISTANT";
+            case LONG_PRESS_POWER_CUSTOM_VOICE:
+                return "LONG_PRESS_POWER_CUSTOM_VOICE";
             default:
                 return Integer.toString(behavior);
         }

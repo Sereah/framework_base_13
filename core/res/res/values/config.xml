@@ -991,8 +991,9 @@
             3 - Power off (without confirmation)
             4 - Go to voice assist
             5 - Go to assistant (Settings.Secure.ASSISTANT)
+            6 - Custom Voice
     -->
-    <integer name="config_longPressOnPowerBehavior">5</integer>
+    <integer name="config_longPressOnPowerBehavior">6</integer>
 
     <!-- The time in milliseconds after which a press on power button is considered "long". -->
     <integer name="config_longPressOnPowerDurationMs">500</integer>
