@@ -1,9 +1,8 @@
-package com.android.server.voice;
+package com.lunacattus.voice.server;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Binder;
-import android.util.Log;
 import android.util.Slog;
 import android.voice.VoiceConstants;
 

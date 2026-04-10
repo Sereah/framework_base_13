@@ -120,6 +120,7 @@ java_library_static {
         "java/com/android/server/am/EventLogTags.logtags",
         "java/com/android/server/wm/EventLogTags.logtags",
         "java/com/android/server/policy/EventLogTags.logtags",
+        ":lunacattus-voice-aidl-sources",
     ],
 
     libs: [
@@ -216,4 +217,12 @@ genrule {
 prebuilt_etc {
     name: "protolog.conf.json.gz",
     src: ":services.core.json.gz",
+}
+
+filegroup {
+    name: "lunacattus-voice-aidl-sources",
+    srcs: [
+        "java/com/lunacattus/voice/**/*.aidl",
+    ],
+    path: "java",
 }
